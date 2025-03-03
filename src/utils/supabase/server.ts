@@ -1,6 +1,6 @@
 import { Database } from '@/types/supabase';
 import { createServerClient } from '@supabase/ssr';
-import { cookies as nextCookies } from 'next/headers';
+// import { cookies as nextCookies } from 'next/headers';
 
 export const createClient = (cookies: Partial<{ [key: string]: string }>) => {
   return createServerClient<Database>(

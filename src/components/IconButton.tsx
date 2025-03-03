@@ -28,7 +28,7 @@ const IconButton = <Component extends ElementType = 'button'>({
       ...props,
     },
     <Icon
-      className={cn('h-5 w-5 transition-all lg:h-6 lg:w-6s', iconClassName)}
+      className={cn('h-6 w-6 transition-all lg:h-6 lg:w-6s', iconClassName)}
     />,
   );
 };

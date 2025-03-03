@@ -5,7 +5,7 @@ const button = cva('flex ');
 export default function Home() {
   return (
     <main>
-      <h1>NEXTJS HELLP WORLD</h1>
+      <h1>NEXTJS HELLO WORLD</h1>
     </main>
   );
 }
