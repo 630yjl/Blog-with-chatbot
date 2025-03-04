@@ -1,8 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
+const removeImports = require('next-remove-imports');
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
+  // 추가 설정 옵션들을 여기에 작성하세요.
 };
 
-export default nextConfig;
+module.exports = removeImports(nextConfig);
