@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { cva } from '@/utils/style';
+import '@/styles/globals.css';
 
 const button = cva('flex ');
 export default function Home() {
