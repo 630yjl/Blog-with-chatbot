@@ -15,6 +15,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Post | StorageError>,
 ) {
+  if (req.method! == 'POST') return res.status(405).end();
+
   const form = formiable();
 
   const [fields, files] = await form.parse(req);
