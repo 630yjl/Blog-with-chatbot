@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import { FormEvent, useRef, useState } from 'react';
 import Creatable from 'react-select/creatable';
 
+const supabase = createClient();
+
 export default function Write() {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -15,7 +17,6 @@ export default function Write() {
   const { data: existingCategories } = useQuery({
     queryKey: ['category'],
     queryFn: async () => {
-      const supabase = createClient();
       const { data } = await supabase.from('Post').select('category');
       return Array.from(new Set(data?.map((d) => d.category)));
     },
@@ -24,7 +25,6 @@ export default function Write() {
   const { data: existingTags } = useQuery({
     queryKey: ['tags'],
     queryFn: async () => {
-      const supabase = createClient();
       const { data } = await supabase.from('Post').select('tags');
       return Array.from(new Set(data?.flatMap((d) => JSON.parse(d.tags))));
     },
