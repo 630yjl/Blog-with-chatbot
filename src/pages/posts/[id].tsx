@@ -31,7 +31,7 @@ export default function Post({
         </Link>
         {tags.map((tag) => (
           <Link
-            href={`/tag/${tag}`}
+            href={`/tags/${tag}`}
             key={tag}
             className="rounded-md bg-slate-200 px-2 py-1 text-sm text-slate-800"
           >
