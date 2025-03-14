@@ -19,7 +19,7 @@ const PostCard: FC<PostCardProps> = ({
     <Link href={`/posts/${id}`} className={cn('bg-white', className)}>
       <div className="relative aspect-[1.8/1] w-full">
         <Image
-          src={preview_image_url ?? '/thumnaul.svg'}
+          src={preview_image_url ?? '/thumbnail.svg'}
           fill
           sizes="360px"
           alt={title}
