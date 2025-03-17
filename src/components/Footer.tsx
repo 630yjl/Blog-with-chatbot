@@ -14,7 +14,7 @@ const Footer: FC = () => {
         </div>
       </div>
 
-      <div className="flex item-conter gap-2 lg:gap-3">
+      <div className="flex items-center gap-2 lg:gap-3">
         <div className="pr-1 text-sm lg:pr-2 lg:text-base">ADMIN</div>
         <IconButton
           Icon={AiOutlineSetting}
