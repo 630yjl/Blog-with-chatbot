@@ -2,13 +2,26 @@ import { cn } from '@/utils/style';
 import Link from 'next/link';
 import { AiFillGithub, AiFillInstagram, AiOutlineClose } from 'react-icons/ai';
 import IconButton from './IconButton';
+import { useQuery } from '@tanstack/react-query';
+import { createClient } from '@/utils/supabase/client';
+import { FC } from 'react';
 
 type SidebarProps = {
   close: () => void;
   isOpen: boolean;
 };
 
-const Sidebar = ({ close, isOpen }: SidebarProps) => {
+const supabase = createClient();
+
+const Sidebar: FC<SidebarProps> = ({ close, isOpen }) => {
+  const { data: existingCategories } = useQuery({
+    queryKey: ['category'],
+    queryFn: async () => {
+      const { data } = await supabase.from('Post').select('category');
+      return Array.from(new Set(data?.map((d) => d.category)));
+    },
+  });
+
   return (
     <div
       className={cn(
@@ -23,17 +36,20 @@ const Sidebar = ({ close, isOpen }: SidebarProps) => {
         홈
       </Link>
       <Link
-        href="/tag"
+        href="/tags"
         className="w-48 font-medium text-gray-600 hover:underline"
       >
         태그
       </Link>
-      <Link
-        href="/category/Web-Development"
-        className="w-48 font-medium text-gray-600 hover:underline"
-      >
-        Web Development
-      </Link>
+      {existingCategories?.map((category) => (
+        <Link
+          href={`/categories/${category}`}
+          className="w-48 font-medium text-gray-600 hover:underline"
+          key={category}
+        >
+          {category}
+        </Link>
+      ))}
       <div className="mt-10 flex item-center gap-4">
         <IconButton
           Icon={AiFillInstagram}
