@@ -1,5 +1,7 @@
+import Button from '@/components/Button';
 import Input from '@/components/Input';
 import { MarkdownEditor } from '@/components/Markdown';
+import { useCategories, useTags } from '@/utils/hooks';
 import { createClient } from '@/utils/supabase/client';
 import { useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from 'next';
@@ -14,21 +16,9 @@ export default function Write() {
   const fileRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
 
-  const { data: existingCategories } = useQuery({
-    queryKey: ['category'],
-    queryFn: async () => {
-      const { data } = await supabase.from('Post').select('category');
-      return Array.from(new Set(data?.map((d) => d.category)));
-    },
-  });
+  const { data: existingCategories } = useCategories();
 
-  const { data: existingTags } = useQuery({
-    queryKey: ['tags'],
-    queryFn: async () => {
-      const { data } = await supabase.from('Post').select('tags');
-      return Array.from(new Set(data?.flatMap((d) => JSON.parse(d.tags))));
-    },
-  });
+  const { data: existingTags } = useTags();
 
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState('');
@@ -65,7 +55,7 @@ export default function Write() {
   };
 
   return (
-    <div className="container mx-auto flex flex-col px-4 pb-20 pt-12">
+    <div className="container flex flex-col pb-20 pt-12">
       <h1 className="mb-8 text-2xl font-medium">새로운 글</h1>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-3">
@@ -97,12 +87,9 @@ export default function Write() {
             onChange={(s) => setContent(s ?? '')}
           />
         </div>
-        <button
-          type="submit"
-          className="mt-4 w-full rounded-md bg-gray-800 py-2"
-        >
+        <Button type="submit" className="mt-4">
           작성하기
-        </button>
+        </Button>
       </form>
     </div>
   );
